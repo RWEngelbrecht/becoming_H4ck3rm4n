@@ -1,0 +1,21 @@
+basics:
+	- mostly sites with php or similar backends
+	- includes Local file inclusion (LFI) and Remote file inclusion (RFI) vulnerabilities
+	- LFI:
+		- often found in GET request params
+		- happens when user input results in having to retrieve certain files from server-side
+	- LFI with path traversal:
+		- if files are included in php script by absolute path (i.e. `include(<dir_name>.<file_path>)`)
+		- e.g. if /index.php?<param>=<file.php> and index.php has `include("./<local_folder>/".$_GET['<param>'])`
+		  and you want the local /etc/passwd file, you'd put /index.php?<param>=../../../etc/passwd to effectively
+		  traverse the server's directory tree
+		- if include() is used to complete partial file name (e.g. include("<local_f ...>".$_GET['<param>'])),
+		  adding `/` to start of traversal should escape filename and traverse dirs in stead
+	- LFI with blacklisting:
+		- if backend tries to prevent traversal like this: `$param = str_replace('../', '', $_GET['<param>']`
+		  '../' can be spoofed with '..././' or '....//'
+			- because str_replace() only executes once
+			- can be patched by looping until string is clean or using basename()
+				- looping patch can be bypassed by url encoding payload (i.e. passing ?<param>=%2e%2e%2fetc%2fpasswd)
+			- can be patched bu appending file extension to param. e.g. include($_GET['<param>'].".php")
+
