@@ -1,0 +1,20 @@
+tools: 
+	- nmap
+	- netcat
+	- smbclient
+	- snmpwalk
+	- onesixtyone (snmp scanner)
+	- gobuster (bruteforcer for many scenarios)
+	- whatweb (extract version of webserver, supporting frameworks, and apps)
+common default ports:
+	- 3389 : remote desktop services on Windows
+	
+learn more:
+	- better cURL
+	- web app enumeration
+	- SNMP
+	- EternalBlue
+	
+general steps:
+	1. scan ports for services with nmap/netcat/etc
+	2. look for public exploits of services on ports
