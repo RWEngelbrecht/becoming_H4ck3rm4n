@@ -13,3 +13,5 @@ Uses raw IP packets to determine available hosts on network, what services they 
   - `nmap -sn <inet>/<range>`
 - scan ports on host (`-sT`: tcp connect (full open scan))
   - `nmap -sT [-p<ports,>][-p- for all ports] <inet>/<range>`
+- scan stealthily
+  - `nmap -sS [-p<ports,> OPTIONAL][-p- for all ports OPTIONAL] <inet>/<range>`
